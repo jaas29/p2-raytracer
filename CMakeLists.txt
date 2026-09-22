@@ -8,4 +8,4 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(render src/main.cpp)
 target_include_directories(render PRIVATE include)
-target_compile_options(render PRIVATE -Wall -Wextra -Wpedantic -Werror)
+target_compile_options(render PRIVATE -Wall -Wextra -Wpedantic -Werror -ferror-limit=0)
