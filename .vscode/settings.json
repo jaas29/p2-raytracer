@@ -1,0 +1,14 @@
+{
+  // clangd needs to know which build directory holds compile_commands.json,
+  // or it cannot resolve #include "rt/vec3.h" and underlines correct code in red.
+  // Point it at the everyday build.
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/build/dev",
+    "--header-insertion=never"
+  ],
+
+  // Two save-related episodes on 21 Sep came from editing without saving, so
+  // the file on disk did not match what was on screen.
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000
+}

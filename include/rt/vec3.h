@@ -139,6 +139,7 @@ inline Vec3 operator/(const Vec3 &v, double t)
 inline double dot(const Vec3 &u, const Vec3 &v)
 {
     // TODO
+    return ((u.x * v.x) + (u.y * v.y) + (u.z * v.z));
 }
 
 // The cross product: a vector perpendicular to both inputs.
@@ -149,6 +150,10 @@ inline double dot(const Vec3 &u, const Vec3 &v)
 inline Vec3 cross(const Vec3 &u, const Vec3 &v)
 {
     // TODO
+    return Vec3{
+        u.y * v.z - u.z * v.y,
+        u.z * v.x - u.x * v.z,
+        u.x * v.y - u.y * v.x};
 }
 
 // Same direction, length exactly 1. Divide the vector by its own length.
@@ -158,4 +163,5 @@ inline Vec3 cross(const Vec3 &u, const Vec3 &v)
 inline Vec3 unit_vector(const Vec3 &v)
 {
     // TODO
+    return v / v.length();
 }
