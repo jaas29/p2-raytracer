@@ -1,6 +1,6 @@
-#include "rt/vec3.h"
 #include <iostream>
-
+#include "rt/vec3.h"
+#include "rt/ray.h"
 int main()
 {
     const int image_width = 256;
