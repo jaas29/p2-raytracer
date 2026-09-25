@@ -1,6 +1,13 @@
 #include <iostream>
 #include "rt/vec3.h"
 #include "rt/ray.h"
+
+Color ray_color(const Ray &r)
+{
+    auto unit_direction = unit_vector(r.direction());
+    auto a = 0.5 * (unit_direction.y + 1);
+    return (1.0 - a) * Color(1.0, 1.0, 1.0) + a * Color(0.5, 0.7, 1.0);
+}
 int main()
 {
     const int image_width = 256;
