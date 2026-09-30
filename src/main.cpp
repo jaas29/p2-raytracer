@@ -13,7 +13,7 @@ double hit_sphere(const Point3 &center, double radius, const Ray &r)
 
     if (discriminant < 0)
         return -1.0;
-    return (-b - std::sqrt(discriminant / 2.0 * a));
+    return (-b - std::sqrt(discriminant)) / (2.0 * a);
 }
 
 Color ray_color(const Ray &r)
