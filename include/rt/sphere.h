@@ -25,7 +25,7 @@ public:
         auto root = (-b - sqrt) / (2.0 * a);
         if (root <= t_min || t_max <= root)
         {
-            root = (-b + sqrtd) / (2.0 * a);
+            root = (-b + sqrt) / (2.0 * a);
             if (root <= t_min || t_max <= root)
                 return false;
         }

@@ -3,6 +3,8 @@
 #include "rt/ray.h"
 #include "cmath"
 #include "rt/hittable.h"
+#include "rt/sphere.h"
+#include "rt/hittable_list.h"
 double hit_sphere(const Point3 &center, double radius, const Ray &r)
 {
     Vec3 oc = center - r.origin();              // oc = C-Q
