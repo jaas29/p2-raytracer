@@ -20,22 +20,18 @@ public:
         HitRecord temp_rec;
         bool hit_anything = false;
         auto closest_so_far = t_max;
-
+        // TODO: ask object->hit(...) with the range t_min to closest_so_far,
         for (const auto &object : objects_)
         {
-            // TODO: ask object->hit(...) with the range t_min to closest_so_far,
-            for (const auto &object : objects_)
+            if (object->hit(r, t_min, closest_so_far, temp_rec))
             {
-                if (object->hit(r, t_min, closest_so_far, temp_rec))
-                {
-                    hit_anything = true;
-                    closest_so_far = temp_rec.t;
-                    rec = temp_rec;
-                }
+                hit_anything = true;
+                closest_so_far = temp_rec.t;
+                rec = temp_rec;
             }
-
-            return hit_anything;
         }
+
+        return hit_anything;
     }
 
 private:

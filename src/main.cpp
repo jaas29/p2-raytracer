@@ -1,37 +1,33 @@
+#include <cmath>
 #include <iostream>
-#include "rt/vec3.h"
-#include "rt/ray.h"
-#include "cmath"
+#include <limits>
+#include <memory>
 #include "rt/hittable.h"
-#include "rt/sphere.h"
 #include "rt/hittable_list.h"
-double hit_sphere(const Point3 &center, double radius, const Ray &r)
-{
-    Vec3 oc = center - r.origin();              // oc = C-Q
-    auto a = dot(r.direction(), r.direction()); // a = d.d
-    auto b = -2.0 * dot(r.direction(), oc);
-    auto c = dot(oc, oc) - radius * radius;
-    auto discriminant = b * b - 4 * a * c;
+#include "rt/ray.h"
+#include "rt/sphere.h"
+#include "rt/vec3.h"
 
-    if (discriminant < 0)
-        return -1.0;
-    return (-b - std::sqrt(discriminant)) / (2.0 * a);
-}
-
-Color ray_color(const Ray &r)
+Color ray_color(const Ray &r, const Hittable &world)
 {
-    auto t = hit_sphere(Point3(0, 0, -1), 0.5, r);
-    if (t > 0)
+    const double infinity = std::numeric_limits<double>::infinity();
+
+    HitRecord rec;
+    if (world.hit(r, 0.0, infinity, rec))
     {
-        Vec3 N = unit_vector(r.at(t) - Point3(0, 0, -1));
+        Vec3 N = rec.normal;
         return 0.5 * Color(N.x + 1, N.y + 1, N.z + 1);
     }
+
     auto unit_direction = unit_vector(r.direction());
     auto a = 0.5 * (unit_direction.y + 1);
     return (1.0 - a) * Color(1.0, 1.0, 1.0) + a * Color(0.5, 0.7, 1.0);
 }
 int main()
 {
+    // World
+    HittableList world;
+    world.add(std::make_unique<Sphere>(Point3(0, 0, -1), 0.5));
     // Image
     auto aspect_ratio = 16.0 / 9.0;
     int image_width = 400;
@@ -67,7 +63,7 @@ int main()
             auto pixel_center = pixel00_loc + i * pixel_delta_u + j * pixel_delta_v;
             auto ray_direction = pixel_center - camera_center;
             Ray r(camera_center, ray_direction);
-            Color pixel_color = ray_color(r);
+            Color pixel_color = ray_color(r, world);
             // tunr r,g,b into ints 0...255 and print them
             int ir = int(255.999 * pixel_color.x);
             int ig = int(255.999 * pixel_color.y);
