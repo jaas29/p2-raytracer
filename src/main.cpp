@@ -28,6 +28,8 @@ int main()
     // World
     HittableList world;
     world.add(std::make_unique<Sphere>(Point3(0, 0, -1), 0.5));
+    world.add(std::make_unique<Sphere>(Point3(0, -100.5, -1), 100.0));
+
     // Image
     auto aspect_ratio = 16.0 / 9.0;
     int image_width = 400;
